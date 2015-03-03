@@ -17,7 +17,7 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 
    int counter = 0;
    int n = 1;  //current number of intervals
-   while (int n; n <= 4; n++)
+   while (counter < 4)
    {
       //DO THIS
       //obtain the required number of trapezoid evaluations depending on the number of levels requested
