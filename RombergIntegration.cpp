@@ -39,27 +39,38 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
    //the total number of executions of the loop is ??
 
    //DO THIS
-   int iterations = level;              //can be precomputed counter -1
+   int iterations = counter - 1;              //can be precomputed counter -1
    while (iterations > 0)
    {
       //DO THIS
       //use the algorithm described in the lab to improve the accuracy of your level 0 results
-		Double* iL_D = q1->dequeue();
-		double iL = iL_D->getValue();
-		double iM = q1->peek()->getValue();
-		factor = pow(4, power);
-		double calc = ((factor*iM)-iL)/(factor - 1);
-		
-		db = new Double(calc);
-		q2->enqueue(db);
-		
+
+		while (q1->size() != 1)
+		{
+			Double* iL_D = q1->dequeue();
+			double iL = iL_D->getValue();
+			double iM = q1->peek()->getValue();
+			factor = pow(4, power);
+			double calc = ((factor*iM)-iL)/(factor - 1);
+			
+			Double* db2 = new Double(calc);
+			q2->enqueue(db2);
+		}
+				
+		int num = q2->size();
+		q1->dequeueAll();
+		for (int i = 0; i < num; i++)
+		{
+			q1->enqueue(q2->dequeue());
+		}
+
 		power++;
 		iterations--;
    }
-
+   
    //obtain the final answer
    db = q1->dequeue();
-   double result = db->getValue();  
+   double result = db->getValue();   
    delete db;
 
    delete q1;

@@ -1,12 +1,10 @@
 #if !defined (QUEUELINKED_H)
 #define QUEUELINKED_H
-
 #include "NextNode.h"
 
 template < class T >
 class QueueLinked
 {
-
    private:
       NextNode<T>* back;
       int sze;
@@ -20,7 +18,6 @@ class QueueLinked
       T* peek();
       T* dequeue();
       void enqueue(T* item);
-
 };
 
 template < class T >
